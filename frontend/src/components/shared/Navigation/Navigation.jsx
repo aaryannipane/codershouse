@@ -21,9 +21,9 @@ const Navigation = ()=>{
 
     return (
         <nav className={`${styles.navbar} container`}>
-            {/* Link tag is used to create a link that will not refresh the page */}
+            {/* Link tag is used to create a link that will not refresh the page on clicking the link*/}
+            {/* we can't use module css style on Link element so we use inline style for element */}
             <Link to="/" style={brandStyle}>
-                {/* we can't use module css style on Link element so we use inline style for element */}
                 <img src="/images/logo.png" alt="logo" />
                 <span style={logoText}>codershouse</span>
             </Link>

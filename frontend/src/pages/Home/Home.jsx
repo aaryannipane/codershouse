@@ -6,7 +6,14 @@ import Button from "../../components/shared/Button/Button";
 
 
 
-const Home = ()=>{
+const Home = ({isAuth})=>{
+
+    // navigate hook from react router dom use for page redirect 
+    const navigate = useNavigate();
+
+    if(isAuth){
+        navigate("/rooms");
+    }
 
     const signInStyle = {
         color:"#0077ff",
@@ -15,11 +22,10 @@ const Home = ()=>{
         marginLeft:"10px"
     }
 
-    // navigate hook from react router dom use for page redirect 
-    const navigate = useNavigate();
+    
     const startRegister = ()=>{
         // navigate page to register page
-        navigate("/register");
+        navigate("/authenticate");
     }
 
     return (
@@ -34,11 +40,7 @@ const Home = ()=>{
                 </p>
                 <div>
                     {/* we are passing onClick as a prop cause Button here used is component */}
-                    <Button onClick={startRegister} text="Get your username" />
-                </div>
-                <div className={styles.signinWrapper}>
-                    <span className={styles.hasInvite}>Have an invite text?</span>
-                    <Link to="/login" style={signInStyle}>Sign in</Link>
+                    <Button onClick={startRegister} text="Let's Go" />
                 </div>
             </Card>
             

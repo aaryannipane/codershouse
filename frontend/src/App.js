@@ -1,16 +1,23 @@
 import './App.css';
-import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
+import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import Navigation from './components/shared/Navigation/Navigation';
 import Home from './pages/Home/Home';
-import Register from './pages/Register/Register';
-import Login from "./pages/Login/Login";
 import Authenticate from './pages/Authenticate/Authenticate';
+import GuestRoute from './ProtectedRoutes/GuestRoute/GuestRoute';
+import SemiProtectedRoute from './ProtectedRoutes/SemiProtectedRoute/SemiProtectedRoute';
+import Activate from './pages/Activate/Activate';
+import ProtectedRoute from './ProtectedRoutes/ProtectedRoute/ProtectedRoute';
+import Rooms from './pages/Rooms/Rooms';
+import { useSelector } from 'react-redux';
 
 
-const isAuth = false;
+
 
 
 function App() {
+  const auth = useSelector((state)=> state.auth);
+
+  const {user, isAuth} = auth;
   return (
     <BrowserRouter>
 
@@ -19,42 +26,32 @@ function App() {
 
       <Routes>
         
+        {/* GUESTROUTE START */}
         {/* for home page route  */}
-        <Route exact path='/' element={<Home/>} />
-
+        <Route exact path='/' element={<GuestRoute isAuth={isAuth}  Component={Home} />} />
+        
         {/* authenticate page */}
-        <GuestRoute path='/authenticate' element={<Authenticate/>} />
+        <Route path='/authenticate' element={<GuestRoute isAuth={isAuth}  Component={Authenticate} />} />
 
-        {/* <Route path='/authenticate' element={<Authenticate/>} /> */}
+        {/* <Route element={<GuestRoute isAuth={isAuth}/>}>
+          <Route path='/' exact element={<Home/>} />
+          <Route path='/authenticate' exact element={<Authenticate/>} />
+        </Route> */}
+        {/* GUESTROUTE END */}
 
-        {/* for register page */}
-        {/* <Route path='/register' element={<Register/>} /> */}
+        {/* SEMIPROTECTEDROUTE START */}
+        <Route path='/activate' element={<SemiProtectedRoute isAuth={isAuth} activated={user.activated} Component={Activate} />} />
+        {/* SEMIPROTECTEDROUTE END */}
 
-        {/* for login page */}
-        {/* <Route path='/login' element={<Login/>} /> */}
+        {/* PROTECTED ROUTE START */}
+        <Route path='/rooms' element={<ProtectedRoute isAuth={isAuth} activated={user.activated} Component={Rooms} />} />
+        {/* PROTECTED ROUTE END */}
+        
+
 
       </Routes>
     </BrowserRouter>
   );
-}
-
-// to apply checks we created this component and inside it we have a route
-const GuestRoute = ({element, ...rest})=>{
-  return (
-    <Route {...rest} render={({location})=>{
-      return isAuth ?
-      (<Navigate to={
-        {
-          path: "/rooms",
-          state: {from: location}
-        }
-      } />)
-      :
-      (
-        element
-      )
-    }} />
-  )
 }
 
 export default App;

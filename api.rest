@@ -1,0 +1,17 @@
+POST http://localhost:5500/api/send-otp HTTP/1.1
+Content-Type: application/json
+
+{
+    "phone":"+918657295928"
+}
+
+###
+
+POST http://localhost:5500/api/verify-otp HTTP/1.1
+Content-Type: application/json
+
+{
+    "phone":"+918657295928",
+    "otp": 1149,
+    "hash": "3f503913819074a0115bf99315386e52b5f644dc973f8f77bfe4c79ae172ee7f.1657999941816"
+}

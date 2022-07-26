@@ -11,7 +11,6 @@ const SemiProtectedRoute = ({isAuth, activated, Component})=>{
 
     // when user confirmed otp but not activated account info like name and avatar
     if(isAuth && !activated){
-        console.log("not activated");
         return <Component />
     }
 

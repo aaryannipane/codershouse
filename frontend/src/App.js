@@ -9,16 +9,23 @@ import Activate from './pages/Activate/Activate';
 import ProtectedRoute from './ProtectedRoutes/ProtectedRoute/ProtectedRoute';
 import Rooms from './pages/Rooms/Rooms';
 import { useSelector } from 'react-redux';
-
-
+import { useLoadingWithRefresh } from './hooks/useLoadingWithRefresh';
+import {useCallback, useEffect, useState} from "react";
 
 
 
 function App() {
   const auth = useSelector((state)=> state.auth);
-
   const {user, isAuth} = auth;
-  return (
+
+  const {loading} = useLoadingWithRefresh();
+  // let loading = false;
+
+
+
+  return loading ? (
+    "loading"
+    ):(
     <BrowserRouter>
 
       {/* common component on all pages */}

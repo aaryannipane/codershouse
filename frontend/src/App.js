@@ -11,6 +11,7 @@ import Rooms from './pages/Rooms/Rooms';
 import { useSelector } from 'react-redux';
 import { useLoadingWithRefresh } from './hooks/useLoadingWithRefresh';
 import {useCallback, useEffect, useState} from "react";
+import { Loader } from './components/shared/Loader/Loader';
 
 
 
@@ -21,7 +22,7 @@ function App() {
   const {loading} = useLoadingWithRefresh();
   // let loading = false;
 
-
+  return <Loader message="Activation is in progress"/>;
 
   return loading ? (
     "loading"

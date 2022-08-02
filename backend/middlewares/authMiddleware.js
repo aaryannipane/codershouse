@@ -2,13 +2,13 @@ import TokenService from "../services/tokenService.js";
 
 const authMiddleware = async (req, res, next)=>{
     try {
-        const {accesstoken} = req.cookies;
+        const {accessToken} = req.cookies;
         
-        if(!accesstoken){
+        if(!accessToken){
             throw new Error();
         }
 
-        const userData = await TokenService.verifyAccessToken(accesstoken);
+        const userData = await TokenService.verifyAccessToken(accessToken);
 
         if(!userData){
             throw new Error();

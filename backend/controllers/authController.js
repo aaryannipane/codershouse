@@ -150,12 +150,13 @@ class AuthController{
 
     }
 
-    static solving = async (req, res)=>{
-        res.cookie("refreshtoken", "dfsf564sd4f6sd5f4fd6s4f", {
-            maxAge: 1000 * 60,
-            httpOnly: true
-        })
-        res.status(200).json({message:"success"});
+    static logout = async (req, res) => {
+        const {refreshToken} = req.cookies;
+        await TokenService.removeToken(refreshToken);
+
+        res.clearCookie('refreshToken')
+        res.clearCookie('accessToken')
+        res.json({user: false, auth: false});
     }
 
 }

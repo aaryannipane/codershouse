@@ -44,6 +44,10 @@ class TokenService{
     static updateRefreshToken = async (userId, refreshToken)=>{
         return await RefreshModel.updateOne({userId:userId}, {token: refreshToken});
     }
+
+    static removeToken = async (refreshToken) => {
+        await RefreshModel.deleteOne({token: refreshToken});
+    }
 }
 
 export default TokenService;

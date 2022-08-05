@@ -22,10 +22,8 @@ function App() {
   const {loading} = useLoadingWithRefresh();
   // let loading = false;
 
-  return <Loader message="Activation is in progress"/>;
-
   return loading ? (
-    "loading"
+      <Loader message="Loading, please wait..."/>
     ):(
     <BrowserRouter>
 

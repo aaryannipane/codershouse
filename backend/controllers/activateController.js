@@ -13,7 +13,7 @@ class ActivateController{
         const {name, avatar} = req.body;
 
         if(!name || !avatar){
-            res.status(400).json({message:"All fields are required"})
+           return res.status(400).json({message:"All fields are required"})
         }
 
         // image is in Base64
@@ -26,7 +26,7 @@ class ActivateController{
             jimpResp.resize(150, Jimp.AUTO).writeAsync(path.resolve(__dirname, `../storage/${imagePath}`));
 
         } catch (error) {
-            res.status(500).json({message:"could not process the image"});
+           return res.status(500).json({message:"could not process the image"});
         }
 
         const userId = req.user._id
@@ -36,7 +36,7 @@ class ActivateController{
             const user = await UserService.findUser({_id:userId});
 
             if(!user){
-                res.status(404).json({message:"User not found"});
+               return res.status(404).json({message:"User not found"});
             }
 
             user.activated = true;
@@ -46,7 +46,7 @@ class ActivateController{
             res.json({user: new UserDto(user), auth:true});
 
         } catch (error) {
-            res.status(500).json({message: "Server error"})
+           return res.status(500).json({message: "Server error"})
         }
 
         

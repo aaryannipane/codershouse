@@ -1,52 +1,66 @@
-import React from "react";
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { logout } from "../../../http";
-// it is used to use module class in this file
+import { logout } from '../../../http';
 import styles from './Navigation.module.css';
-import {useDispatch, useSelector} from "react-redux"
-import {setAuth} from "../../../store/authSlice.js";
- 
-const Navigation = ()=>{
+import { useDispatch, useSelector } from 'react-redux';
+import { setAuth } from '../../../store/authSlice';
 
-    const dispatch = useDispatch();
-    const {isAuth} = useSelector(state => state.auth);
-
-    // this object is used for inline css 
+const Navigation = () => {
     const brandStyle = {
-        color:"#fff",
-        textDecoration:"none",
-        fontWeight:"bold",
-        fontSize:"22px",
-        display:"flex",
-        alignItems:"center",
-    }
+        color: '#fff',
+        textDecoration: 'none',
+        fontWeight: 'bold',
+        fontSize: '22px',
+        display: 'flex',
+        alignItems: 'center',
+    };
 
     const logoText = {
-        marginLeft:"10px",
-    }
-
-    async function logoutUser(){
-        try{
-            const {data} = await logout();
+        marginLeft: '10px',
+    };
+    const dispatch = useDispatch();
+    const { isAuth, user } = useSelector((state) => state.auth);
+    async function logoutUser() {
+        try {
+            const { data } = await logout();
             dispatch(setAuth(data));
         } catch (err) {
             console.log(err);
         }
-
     }
 
     return (
         <nav className={`${styles.navbar} container`}>
-            {/* Link tag is used to create a link that will not refresh the page on clicking the link*/}
-            {/* we can't use module css style on Link element so we use inline style for element */}
-            <Link to="/" style={brandStyle}>
+            <Link style={brandStyle} to="/">
                 <img src="/images/logo.png" alt="logo" />
-                <span style={logoText}>codershouse</span>
+                <span style={logoText}>Codershouse</span>
             </Link>
-            {isAuth && <button onClick={logoutUser}>Logout</button>}
+            {isAuth && (
+                <div className={styles.navRight}>
+                    <h3>{user?.name}</h3>
+                    <Link to="/">
+                        <img
+                            className={styles.avatar}
+                            src={
+                                user.avatar
+                                    ? user.avatar
+                                    : '/images/monkey-avatar.png'
+                            }
+                            width="40"
+                            height="40"
+                            alt="avatar"
+                        />
+                    </Link>
+                    <button
+                        className={styles.logoutButton}
+                        onClick={logoutUser}
+                    >
+                        <img src="/images/arrow-right-from-bracket-solid.svg" width="25px" alt="logout" title='logout' />
+                    </button>
+                </div>
+            )}
         </nav>
     );
-}
-
+};
 
 export default Navigation;

@@ -32,6 +32,13 @@ img{
     height: auto;
 }
 
+button{
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
 /* CSS RESET END */
 
 

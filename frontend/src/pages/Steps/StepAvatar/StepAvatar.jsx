@@ -22,13 +22,13 @@ const StepAvatar = ({onNext})=>{
 
     function captureImage(e){
         const file = e.target.files[0];
+        console.log(file)
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = function (){
             setImage(reader.result);
             dispatch(setAvatar(reader.result));
         }
-        console.log(e)
     }
 
     const submit = async ()=>{
@@ -65,11 +65,11 @@ const StepAvatar = ({onNext})=>{
             <Card title={`Okay, ${name}!`} icon="monkey-emoji">
                 <p className={styles.subHeading}>How's this photo?</p>
                 <div className={styles.avatarWrapper}>
-                    <img src={image} className={styles.avatarImage} alt="avatar image" />
+                    <img src={image} className={styles.avatarImage} alt="avatar" />
                 </div>
                 <div>
                     <label htmlFor="avatarInput" className={styles.avatarLabel}>Choose a different photo</label>
-                    <input id="avatarInput" type="file" onChange={(e)=>{captureImage(e)}} className={styles.avatarInput} hidden />
+                    <input id="avatarInput" type="file" onChange={(e)=>{captureImage(e)}} className={styles.avatarInput} accept="image/*" hidden />
                 </div>
                 <div>
                     <Button text="Next" onClick={submit} />

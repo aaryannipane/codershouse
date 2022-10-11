@@ -21,12 +21,17 @@ class AuthController {
     const hash = HashService.hashOtp(data);
 
     try {
-      // await OtpService.sendBySms(phone, otp)
+      // send otp to phone number using twilio
+      await OtpService.sendBySms(phone, otp);
 
+      // res.json({
+      //   hash: `${hash}.${expires}`,
+      //   phone: phone,
+      //   otp,
+      // });
       res.json({
         hash: `${hash}.${expires}`,
         phone: phone,
-        otp,
       });
     } catch (e) {
       console.log(e);

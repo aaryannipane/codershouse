@@ -9,47 +9,50 @@ import { useSelector } from "react-redux";
 import { setAuth } from "../../../store/authSlice";
 import { useDispatch } from "react-redux";
 
-const StepOtp = ({onNext})=>{
+const StepOtp = ({ onNext }) => {
+  const [otp, setOtp] = useState("");
+  const dispatch = useDispatch();
+  const { phone, hash } = useSelector((state) => state.auth.otp);
 
-    const [otp, setOtp] = useState('');
-    const dispatch = useDispatch();
-    const {phone, hash} = useSelector((state)=> state.auth.otp);
-
-    async function submit(){
-
-        if(!otp || !phone || !hash){
-            return;
-        }
-
-        try {
-            const {data} = await verifyOtp({otp, phone, hash});
-            console.log(data);
-            dispatch(setAuth(data));
-            // onNext()
-
-        } catch (error) {
-            console.log(error);
-        }
-
+  async function submit() {
+    if (!otp || !phone || !hash) {
+      return;
     }
 
-    return (
-        <>
-            <div className={styles.cardWrapper}>
-                <Card title="Enter the code we just text you" icon="lock-emoji">
-                    <TextInput value={otp} onChange={(e)=>{setOtp(e.target.value)}} />
-                    <div>
-                        <div className={styles.actionButtonWrap}>
-                            <Button text="Next" onClick={submit} />
-                        </div>
-                        <p className={styles.bottomParagraph}>
-                            By entering your email, you're agreeing to our Terms of Service and Privacy Policy. Thanks!
-                        </p>
-                    </div>
-                </Card>
-            </div>
-        </>
-    )
-}
+    try {
+      const { data } = await verifyOtp({ otp, phone, hash });
+      console.log(data);
+      dispatch(setAuth(data));
+      // onNext()
+    } catch (error) {
+      alert("Enter valid otp");
+      console.log(error);
+    }
+  }
 
-export default StepOtp; 
+  return (
+    <>
+      <div className={styles.cardWrapper}>
+        <Card title="Enter the code we just text you" icon="lock-emoji">
+          <TextInput
+            value={otp}
+            onChange={(e) => {
+              setOtp(e.target.value);
+            }}
+          />
+          <div>
+            <div className={styles.actionButtonWrap}>
+              <Button text="Next" onClick={submit} />
+            </div>
+            <p className={styles.bottomParagraph}>
+              By entering your email, you're agreeing to our Terms of Service
+              and Privacy Policy. Thanks!
+            </p>
+          </div>
+        </Card>
+      </div>
+    </>
+  );
+};
+
+export default StepOtp;

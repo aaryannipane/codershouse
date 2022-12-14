@@ -1,0 +1,105 @@
+.modelMask{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* transition: all .5s ease-in-out; */
+}
+
+.modelBody{
+    width: 50%;
+    max-width: 500px;
+    background-color: #1d1d1d;
+    border-radius: 20px;
+    position: relative;
+    animation: open .2s forwards ease-in-out;
+}
+
+@keyframes open{
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+.modelHeader{
+    padding: 30px;
+    border-bottom: 2px solid #262626;
+}
+
+.heading{
+    margin-bottom: 5px;
+}
+
+.roomType{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.typeBox{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background .2s ease-in-out;
+}
+
+.typeBox.active{
+    background: #262626;
+}
+
+.subHeading{
+    font-size: 18px;
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+.modelFooter{
+    padding: 30px;
+    text-align: center;
+}
+
+.modelFooter h2{
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.footerButton{
+    background: #20bd5f;
+    color: white;
+    display: flex;
+    align-items: center;
+    width: 200px;
+    justify-content: center;
+    padding: 10px 5px;
+    border-radius: 20px;
+    margin: 0 auto;
+    transition: all .2s ease-in-out;
+}
+
+.footerButton:hover{
+    background: #13763b;
+}
+
+.footerButton span{
+    margin-left: 5px;
+    font-weight: bold;
+}
+
+.closeBtn{
+    position: absolute;
+    right: 3px;
+    top: 8px;
+    background: transparent;
+}

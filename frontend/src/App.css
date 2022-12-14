@@ -2,8 +2,12 @@
 
 /* CSS RESET START */
 html{
-    box-sizing: border-box;
+    
     font-size: 16px;
+}
+
+*{
+    box-sizing: border-box;
 }
 
 body,
@@ -32,6 +36,13 @@ img{
     height: auto;
 }
 
+button{
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
 /* CSS RESET END */
 
 
@@ -45,4 +56,11 @@ body{
     width: 1200px;
     max-width: 90%;
     margin: 0 auto;
+}
+
+.cardWrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 140px);
 }

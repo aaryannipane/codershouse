@@ -24,17 +24,18 @@ class AuthController {
       // send otp to phone number using twilio
       await OtpService.sendBySms(phone, otp);
 
-      // res.json({
-      //   hash: `${hash}.${expires}`,
-      //   phone: phone,
-      //   otp,
-      // });
       res.json({
         hash: `${hash}.${expires}`,
         phone: phone,
+        otp,
       });
+      // res.json({
+      //   hash: `${hash}.${expires}`,
+      //   phone: phone,
+      // });
     } catch (e) {
       console.log(e);
+      // alert("failed to send otp. \n Check your network and try again.");
       res.status(500).json({ message: "message sending failed" });
     }
   };
